@@ -489,13 +489,15 @@ video#main-video {
   min-width: 200px;
 }
 
-.search-input-wrapper i {
+.search-input-wrapper i,
+.search-input-wrapper svg {
   position: absolute;
   left: 12px;
   top: 50%;
   transform: translateY(-50%);
   color: var(--text-muted);
-  font-size: 16px;
+  width: 16px;
+  height: 16px;
 }
 
 .search-field {
@@ -1360,8 +1362,10 @@ video#main-video {
   margin-bottom: 16px;
 }
 
-.ai-welcome-avatar i {
-  font-size: 32px;
+.ai-welcome-avatar i,
+.ai-welcome-avatar svg {
+  width: 32px;
+  height: 32px;
 }
 
 .ai-welcome-title {
@@ -1702,12 +1706,15 @@ video#main-video {
   color: var(--color-cat-orange);
 }
 
-.ppt-import-box i {
-  font-size: 24px;
+.ppt-import-box i,
+.ppt-import-box svg {
+  width: 24px;
+  height: 24px;
   color: var(--text-secondary);
 }
 
-.ppt-import-box:hover i {
+.ppt-import-box:hover i,
+.ppt-import-box:hover svg {
   color: var(--color-cat-orange);
 }
 
@@ -2385,3 +2392,746 @@ video#main-video {
     position: static;
   }
 }
+
+/* =========================================
+   Admin Panel Styles
+   ========================================= */
+.admin-login-btn {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 500;
+  padding: 6px 14px;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+}
+
+.admin-login-btn:hover {
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+/* Modal Overlay & Card */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(15, 23, 42, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn var(--transition-fast) ease-out;
+}
+
+.modal-card {
+  background-color: white;
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  width: 340px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: scaleUp 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes scaleUp {
+  from { transform: scale(0.95); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.modal-title {
+  font-family: var(--font-title);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.modal-desc {
+  font-size: 12px;
+  color: var(--text-secondary);
+  line-height: 1.4;
+}
+
+.modal-input {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 14px;
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.modal-input:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-btn {
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  border: none;
+  transition: var(--transition-fast);
+}
+
+.btn-cancel {
+  background-color: #f1f5f9;
+  color: var(--text-secondary);
+}
+
+.btn-cancel:hover {
+  background-color: #e2e8f0;
+  color: var(--text-primary);
+}
+
+.btn-confirm {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+.btn-confirm:hover {
+  background-color: var(--color-primary-hover);
+}
+
+/* Accordion Foldable Sections */
+.admin-sec {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  transition: border-color var(--transition-fast);
+}
+
+.admin-sec:hover {
+  border-color: #cbd5e1;
+}
+
+.admin-sec.active {
+  border-color: var(--color-primary-light);
+  box-shadow: var(--shadow-md);
+}
+
+.admin-sec-header {
+  padding: 14px 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  color: var(--text-primary);
+  background-color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+
+.sec-chevron {
+  color: var(--text-muted);
+  transition: transform var(--transition-fast);
+}
+
+.admin-sec.active .sec-chevron {
+  transform: rotate(180deg);
+  color: var(--color-primary);
+}
+
+.admin-sec-body {
+  display: none;
+  padding: 16px;
+  border-top: 1px solid var(--border-color);
+  background-color: #fafbfd;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.admin-sec.active .admin-sec-body {
+  display: flex;
+}
+
+/* Form inputs styling */
+.admin-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.admin-form-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.admin-form-group input, 
+.admin-form-group textarea, 
+.admin-form-group select {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  outline: none;
+  background-color: white;
+  transition: var(--transition-fast);
+}
+
+.admin-form-group input:focus, 
+.admin-form-group textarea:focus, 
+.admin-form-group select:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.08);
+}
+
+.admin-form-group textarea {
+  height: 60px;
+  resize: vertical;
+}
+
+/* Dynamic rows editor */
+.admin-item-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  background-color: white;
+  padding: 8px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+}
+
+.admin-trash-btn {
+  background: none;
+  border: none;
+  color: #ef4444;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition-fast);
+}
+
+.admin-trash-btn:hover {
+  background-color: #fee2e2;
+}
+
+.admin-add-btn {
+  width: 100%;
+  padding: 8px;
+  background-color: white;
+  border: 1px dashed var(--border-color);
+  border-radius: var(--radius-sm);
+  color: var(--color-primary);
+  font-weight: 600;
+  font-size: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  transition: var(--transition-fast);
+}
+
+.admin-add-btn:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary-light);
+}
+
+/* Footer Action Bar */
+.admin-footer-btn {
+  padding: 10px 16px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  border: none;
+  transition: var(--transition-fast);
+}
+
+.admin-footer-btn.btn-reset {
+  background-color: white;
+  border: 1px solid #fecaca;
+  color: #ef4444;
+}
+
+.admin-footer-btn.btn-reset:hover {
+  background-color: #fef2f2;
+}
+
+.admin-footer-btn.btn-save {
+  background-color: var(--color-primary);
+  color: white;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+.admin-footer-btn.btn-save:hover {
+  background-color: var(--color-primary-hover);
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   Glow Watermarks for Tool Cards
+   ========================================= */
+.card-transcript::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23ef4444' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.07'><path d='M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z'></path><polyline points='14 2 14 8 20 8'></polyline><line x1='16' y1='13' x2='8' y2='13'></line><line x1='16' y1='17' x2='8' y2='17'></line></svg>");
+  width: 100px;
+  height: 100px;
+}
+.card-ai::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%2310b981' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.07'><path d='m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z'></path></svg>");
+  width: 100px;
+  height: 100px;
+}
+.card-ppt::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23f97316' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.07'><rect x='2' y='3' width='20' height='14' rx='2' ry='2'></rect><line x1='8' y1='21' x2='16' y2='21'></line><line x1='12' y1='17' x2='12' y2='21'></line></svg>");
+  width: 100px;
+  height: 100px;
+}
+.card-mindmap::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%238b5cf6' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.07'><line x1='6' y1='3' x2='6' y2='15'></line><circle cx='18' cy='6' r='3'></circle><circle cx='6' cy='18' r='3'></circle><path d='M18 9a9 9 0 0 1-9 9'></path></svg>");
+  width: 100px;
+  height: 100px;
+}
+.card-quiz::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%233b82f6' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.07'><polyline points='9 11 12 14 22 4'></polyline><path d='M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11'></path></svg>");
+  width: 100px;
+  height: 100px;
+}
+.card-flashcards::after {
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 24 24' fill='none' stroke='%23a855f7' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' opacity='0.07'><polygon points='12 2 2 7 12 12 22 7 12 2'></polygon><polyline points='2 17 12 22 22 17'></polyline><polyline points='2 12 12 17 22 12'></polyline></svg>");
+  width: 100px;
+  height: 100px;
+}
+
+/* =========================================
+   Red Pin Timeline Scrubber Playhead
+   ========================================= */
+.timeline-playhead {
+  position: absolute;
+  top: -8px;
+  bottom: -4px;
+  width: 2px;
+  background-color: #ef4444;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 20;
+  left: 0%;
+  transition: left 0.1s linear;
+}
+
+.timeline-playhead::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -4px;
+  width: 10px;
+  height: 10px;
+  background-color: #ef4444;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* =========================================
+   Grey Empty Segment in Timeline Filter Mode
+   ========================================= */
+.timeline-segment.seg-empty {
+  background-color: #e2e8f0;
+  opacity: 0.4;
+}
+
+/* =========================================
+   Expanded Accoridon Segment Cards overrides
+   ========================================= */
+.segment-item.expanded {
+  border-width: 1.5px;
+  transform: scale(1.005);
+  box-shadow: var(--shadow-md);
+}
+
+.segment-item.expanded.seg-green-item {
+  border-color: var(--color-cat-green);
+  background-color: var(--color-cat-green-light);
+}
+
+.segment-item.expanded.seg-purple-item {
+  border-color: var(--color-cat-purple);
+  background-color: var(--color-cat-purple-light);
+}
+
+.segment-item.expanded.seg-pink-item {
+  border-color: var(--color-cat-pink);
+  background-color: var(--color-cat-pink-light);
+}
+
+.segment-item.expanded.seg-orange-item {
+  border-color: var(--color-cat-orange);
+  background-color: var(--color-cat-orange-light);
+}
+
+.segment-item.expanded.seg-blue-item {
+  border-color: var(--color-cat-blue);
+  background-color: var(--color-cat-blue-light);
+}
+
+/* Custom circular chevron-up in expanded mode */
+.segment-item.expanded .segment-chevron {
+  border: 1.5px solid var(--text-primary);
+  border-radius: 50%;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: white;
+  color: var(--text-primary);
+  transform: rotate(180deg);
+  transition: all var(--transition-fast);
+}
+
+.segment-item.expanded .segment-chevron:hover {
+  background-color: var(--text-primary);
+  color: white;
+}
+
+/* Expanded hashtags */
+.expanded-tags-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+  flex-wrap: wrap;
+}
+
+.exp-tag {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+}
+
+.segment-item.expanded.seg-green-item .exp-tag { border-color: rgba(16, 185, 129, 0.2); color: var(--color-cat-green); }
+.segment-item.expanded.seg-purple-item .exp-tag { border-color: rgba(139, 92, 246, 0.2); color: var(--color-cat-purple); }
+.segment-item.expanded.seg-pink-item .exp-tag { border-color: rgba(236, 72, 153, 0.2); color: var(--color-cat-pink); }
+.segment-item.expanded.seg-orange-item .exp-tag { border-color: rgba(249, 115, 22, 0.2); color: var(--color-cat-orange); }
+.segment-item.expanded.seg-blue-item .exp-tag { border-color: rgba(59, 130, 246, 0.2); color: var(--color-cat-blue); }
+
+.segment-desc {
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin-top: 4px;
+}
+
+/* =========================================
+   Bottom Mode Switching Buttons (知识切片 vs 视频简介)
+   ========================================= */
+.bottom-toggle-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+.toggle-btn {
+  background-color: white;
+  color: var(--text-secondary);
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all var(--transition-fast);
+  box-shadow: var(--shadow-sm);
+}
+
+.toggle-btn:hover {
+  border-color: #cbd5e1;
+  color: var(--text-primary);
+}
+
+.toggle-btn.active {
+  background-color: #0f172a;
+  color: white;
+  border-color: #0f172a;
+  box-shadow: 0 4px 10px rgba(15, 23, 42, 0.15);
+}
+
+/* =========================================
+   Student Login Fullscreen Overlay
+   ========================================= */
+.login-fullscreen-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-app);
+  background-image: radial-gradient(at 0% 0%, rgba(99, 102, 241, 0.05) 0px, transparent 50%),
+                    radial-gradient(at 50% 0%, rgba(249, 115, 22, 0.03) 0px, transparent 50%),
+                    radial-gradient(at 100% 0%, rgba(236, 72, 153, 0.05) 0px, transparent 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn var(--transition-fast) ease-out;
+}
+
+.login-card {
+  background-color: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-xl);
+  padding: 40px;
+  width: 420px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  animation: scaleUp 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  color: var(--text-primary);
+}
+
+.login-logo-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.login-logo-icon {
+  width: 40px;
+  height: 40px;
+  background: var(--color-primary);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.2);
+}
+
+.login-app-title {
+  font-family: var(--font-title);
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-primary);
+}
+
+.login-subtitle {
+  font-size: 13.5px;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.login-field-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.login-field-group label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  letter-spacing: 0.5px;
+}
+
+.login-input-wrapper {
+  position: relative;
+  width: 100%;
+}
+
+.login-input-wrapper i,
+.login-input-wrapper svg {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+.login-input-wrapper input {
+  width: 100%;
+  padding: 12px 14px 12px 38px;
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  color: var(--text-primary);
+  outline: none;
+  transition: var(--transition-fast);
+}
+
+.login-input-wrapper input::placeholder {
+  color: var(--text-muted);
+}
+
+.login-input-wrapper input:focus {
+  background-color: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+}
+
+.login-error-tip {
+  font-size: 12.5px;
+  color: #ef4444;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  line-height: 1.4;
+  animation: shake 0.2s ease-in-out 2;
+}
+
+.login-submit-btn {
+  background: var(--color-primary);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 30px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
+  margin-top: 10px;
+}
+
+.login-submit-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.25);
+  background-color: var(--color-primary-hover);
+}
+
+.login-submit-btn:active {
+  transform: translateY(1px);
+}
+
+/* =========================================
+   Student Info Header Styles
+   ========================================= */
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.header-student-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-student-label {
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+  font-weight: 600;
+  background-color: #f1f5f9;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.header-student-val {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.header-student-divider {
+  width: 1px;
+  height: 14px;
+  background-color: var(--border-color);
+  margin: 0 16px;
+}
+
+.logout-btn {
+  background-color: white;
+  border: 1px solid var(--border-color);
+  border-radius: 20px;
+  padding: 4px 12px;
+  font-size: 11px;
+  font-weight: 600;
+  color: #ef4444;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition-fast);
+}
+
+.logout-btn:hover {
+  background-color: #fee2e2;
+  border-color: #fca5a5;
+  color: #ef4444;
+}
+
+.login-admin-entry {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+.login-admin-link-btn {
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  transition: var(--transition-fast);
+  padding: 4px 8px;
+}
+
+.login-admin-link-btn:hover {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+

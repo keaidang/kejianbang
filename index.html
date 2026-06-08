@@ -14,17 +14,32 @@
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <!-- Main Stylesheet -->
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=3.0">
 </head>
 <body>
 
   <!-- App Header -->
   <header class="app-header">
-    <div class="header-left">
-      <a href="#" class="logo-container">
-        <div class="logo-icon">K</div>
-        <span class="logo-text">课件帮</span>
-      </a>
+    <div class="header-left" id="header-student-info" style="display: none;">
+      <div class="header-student-item">
+        <span class="header-student-label">学号</span>
+        <span class="header-student-val" id="header-student-id">-</span>
+      </div>
+      <div class="header-student-divider"></div>
+      <div class="header-student-item">
+        <span class="header-student-label">姓名</span>
+        <span class="header-student-val" id="header-student-name">-</span>
+      </div>
+      <div class="header-student-divider"></div>
+      <div class="header-student-item">
+        <span class="header-student-label">授课老师</span>
+        <span class="header-student-val" id="header-teacher-name">-</span>
+      </div>
+      <div class="header-student-divider"></div>
+      <button class="logout-btn" id="header-logout-btn" title="退出登录">
+        <i data-lucide="log-out"></i>
+        退出
+      </button>
     </div>
     
     <div class="header-center">
@@ -36,6 +51,10 @@
     </div>
     
     <div class="header-right">
+      <button class="admin-login-btn" id="admin-login-btn" style="margin-right: 12px;">
+        <i data-lucide="key" style="width: 13px; height: 13px;"></i>
+        管理员登录
+      </button>
       <div class="user-profile">
         <span class="avatar">U</span>
         <span>个人学习版</span>
@@ -117,7 +136,7 @@
       </section>
 
       <!-- Tags & Search Section -->
-      <section class="tags-section">
+      <section class="tags-section" id="left-tags-bar">
         <div class="search-input-wrapper">
           <i data-lucide="plus"></i>
           <input type="text" placeholder="输入感兴趣的知识点/话题..." class="search-field" id="topic-search-input">
@@ -132,21 +151,10 @@
       </section>
 
       <!-- Multi-Colored Timeline Bar -->
-      <section class="timeline-section">
+      <section class="timeline-section" id="left-timeline-bar">
         <!-- Colored segments representing the course sections -->
         <div class="timeline-bar-container" id="timeline-scrubber" title="点击跳转视频进度">
-          <!-- green segment (0:00 - 1:04) -> width = 1.07/13.88 ~ 7.7% -->
-          <div class="timeline-segment seg-green" style="flex-grow: 64;" title="中国河流总体特征 (00:00 - 01:04)"></div>
-          <!-- purple segment (1:04 - 2:09) -> width = 1.08/13.88 ~ 7.8% -->
-          <div class="timeline-segment seg-purple" style="flex-grow: 65;" title="中国七大水系概况 (01:04 - 02:09)"></div>
-          <!-- pink segment (2:09 - 6:55) -> width = 4.77/13.88 ~ 34.3% -->
-          <div class="timeline-segment seg-pink" style="flex-grow: 286;" title="中国典型河流导学 (02:09 - 06:55)"></div>
-          <!-- orange segment (6:55 - 9:01) -> width = 2.10/13.88 ~ 15.1% -->
-          <div class="timeline-segment seg-orange" style="flex-grow: 126;" title="河流价值与保护治理 (06:55 - 09:01)"></div>
-          <!-- blue segment (9:01 - 13:53) -> width = 4.87/13.88 ~ 35.1% -->
-          <div class="timeline-segment seg-blue" style="flex-grow: 292;" title="尾声与延伸拓展 (09:01 - 13:53)"></div>
-          
-          <!-- Scrubber playhead overlay -->
+          <!-- Dynamically generated in app.js -->
           <div class="timeline-scrubber-overlay">
             <div class="timeline-playhead" id="timeline-head"></div>
           </div>
@@ -160,90 +168,37 @@
 
       <!-- Segment list -->
       <section class="segments-list" id="segments-list-container">
-        <!-- Segment 1: Green -->
-        <div class="segment-item seg-green-item" data-start="64" data-tag-category="distribution">
-          <div class="segment-header">
-            <div class="segment-title-wrapper">
-              <span class="segment-dot dot-green"></span>
-              <h4 class="segment-title">中国河流总体特征</h4>
-              <div class="segment-tags">
-                <span class="seg-subtag">流域分布</span>
-                <span class="seg-subtag">因果关系</span>
-              </div>
-            </div>
-            <div class="segment-meta">
-              <span class="segment-time">01:04</span>
-              <i data-lucide="chevron-down" class="segment-chevron"></i>
-            </div>
-          </div>
-          <div class="segment-body">
-            <p>中国地势西高东低，呈三级阶梯状分布，导致大多数河流自西向东注入太平洋。我国江河湖泊众多，流域面积在100平方公里以上的河流有5万多条。外流区约占全国陆地面积的2/3，内流区约占1/3。河流的水文特征深受季风气候影响，南方河流径流量大、汛期长、含沙量小、无结冰期；北方河流径流量较小、汛期短、含沙量大、有结冰期。</p>
+        <!-- Dynamically generated in app.js -->
+      </section>
+
+      <!-- Video Intro Card Container (Initially hidden) -->
+      <section id="intro-card-container" style="display: none; background-color: var(--bg-card); border-radius: var(--radius-md); border: 1px solid var(--border-color); padding: 24px; box-shadow: var(--shadow-sm); flex-direction: column; gap: 16px;">
+        <div style="display: flex; align-items: center; gap: 14px; border-bottom: 1px solid var(--border-color); padding-bottom: 16px;">
+          <div class="avatar" style="width: 48px; height: 48px; font-size: 18px; font-weight: 700; background-color: var(--color-primary-light); color: var(--color-primary);">李</div>
+          <div>
+            <h4 style="font-size: 16px; font-weight: 700; color: var(--text-primary);">李明 老师</h4>
+            <span style="font-size: 12px; color: var(--text-secondary);">国家地理骨干教师 · 互动课件课主讲人</span>
           </div>
         </div>
-
-        <!-- Segment 2: Purple -->
-        <div class="segment-item seg-purple-item" data-start="129" data-tag-category="distribution">
-          <div class="segment-header">
-            <div class="segment-title-wrapper">
-              <span class="segment-dot dot-purple"></span>
-              <h4 class="segment-title">中国七大水系概况</h4>
-              <div class="segment-tags">
-                <span class="seg-subtag">七大水系</span>
-                <span class="seg-subtag">区域作用</span>
-              </div>
-            </div>
-            <div class="segment-meta">
-              <span class="segment-time">02:09</span>
-              <i data-lucide="chevron-down" class="segment-chevron"></i>
-            </div>
-          </div>
-          <div class="segment-body">
-            <p>我国主要的七大水系包括：长江水系、黄河水系、珠江水系、淮河水系、海河水系、辽河水系和松花江水系。各大水系分布在不同的地理区域，为当地的工农业生产、城市供水以及生态系统提供着基础水资源。长江是我国第一大河，流域面积广阔；黄河是中华民族的母亲河，泥沙含量极高；珠江水系年径流量仅次于长江，航运价值极高。</p>
-          </div>
-        </div>
-
-        <!-- Segment 3: Pink -->
-        <div class="segment-item seg-pink-item" data-start="415" data-tag-category="landform">
-          <div class="segment-header">
-            <div class="segment-title-wrapper">
-              <span class="segment-dot dot-pink"></span>
-              <h4 class="segment-title">中国典型河流导学</h4>
-              <div class="segment-tags">
-                <span class="seg-subtag">游标讲解</span>
-                <span class="seg-subtag">一条河的生老病死</span>
-              </div>
-            </div>
-            <div class="segment-meta">
-              <span class="segment-time">06:55</span>
-              <i data-lucide="chevron-down" class="segment-chevron"></i>
-            </div>
-          </div>
-          <div class="segment-body">
-            <p>通过“游标”的视角深入剖析长江与黄河这两条典型河流的生命周期与地理演变。从青藏高原的雪山源头，经历中游的峡谷冲击、黄土高原的泥沙淘洗，再到下游宽阔的冲积平原和入海口三角洲。详细探讨流水侵蚀、搬运和堆积作用是如何塑造出壶口瀑布、长江三峡、地上悬河等独特河流地貌的。</p>
-          </div>
-        </div>
-
-        <!-- Segment 4: Orange -->
-        <div class="segment-item seg-orange-item" data-start="541" data-tag-category="ecology conservation">
-          <div class="segment-header">
-            <div class="segment-title-wrapper">
-              <span class="segment-dot dot-orange"></span>
-              <h4 class="segment-title">河流价值与保护治理</h4>
-              <div class="segment-tags">
-                <span class="seg-subtag">生态价值</span>
-                <span class="seg-subtag">保护措施</span>
-              </div>
-            </div>
-            <div class="segment-meta">
-              <span class="segment-time">09:01</span>
-              <i data-lucide="chevron-down" class="segment-chevron"></i>
-            </div>
-          </div>
-          <div class="segment-body">
-            <p>江河不仅孕育了灿烂的水文化，更提供了防洪、灌溉、发电、航运和渔业等巨大经济生态价值。然而，过度开发、水体污染、水土流失及泥沙淤积也给江河生态带了严峻挑战。当前我国推行“河长制”、实施“长江十年禁渔”以及黄河流域生态保护和高质量发展规划，通过退田还湖、水源涵养林建设以及流域协同治理，保障大江大河的生态安全与可持续发展。</p>
-          </div>
+        <div>
+          <h5 style="font-size: 14px; font-weight: 700; margin-bottom: 8px; color: var(--text-primary);">本课课件简介</h5>
+          <p style="font-size: 13px; color: var(--text-secondary); line-height: 1.6;" id="intro-course-desc">
+            本课件视频系统地介绍了中国主要江河的宏观地理与水文特征。全课共分为五个阶段，分别对我国河流的分布规律、南北水文差异、七大江河水系格局进行梳理，通过长江和黄河的演化阐释流水侵蚀与堆积作用地貌，最后深度探讨江河水资源的生态开发、水污染防治以及协同治理机制。
+          </p>
         </div>
       </section>
+
+      <!-- Dual Mode View Toggle Buttons -->
+      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 12px;" class="bottom-toggle-group">
+        <button class="toggle-btn active" id="btn-toggle-slices">
+          <i data-lucide="layers" style="width: 14px; height: 14px;"></i>
+          知识切片
+        </button>
+        <button class="toggle-btn" id="btn-toggle-intro">
+          <i data-lucide="file-text" style="width: 14px; height: 14px;"></i>
+          视频简介
+        </button>
+      </div>
     </div>
     
     <!-- Right Column: Sidebar Panels & Sliding Drawers -->
@@ -251,18 +206,18 @@
       
       <!-- Primary Tab Header -->
       <nav class="sidebar-tabs">
-        <button class="tab-btn active" id="tab-btn-content" data-tab="pane-content">教学内容</button>
+        <button class="tab-btn active" id="tab-btn-content" data-tab="pane-content">智学空间</button>
         <button class="tab-btn" id="tab-btn-discuss" data-tab="pane-discuss">课程讨论</button>
       </nav>
       
       <!-- Tab Contents Area -->
       <div class="sidebar-content">
         
-        <!-- Tab 1 Pane: Study Tools (教学内容) -->
+        <!-- Tab 1 Pane: Study Tools (智学空间) -->
         <div class="tab-pane active" id="pane-content">
           <div class="space-header">
-            <h4 class="space-title">研学空间</h4>
-            <span class="space-badge">6 个可用</span>
+            <h4 class="space-title">智学空间</h4>
+            <span class="space-badge">6 个应用</span>
           </div>
           
           <!-- 6 Grid Cards -->
@@ -273,7 +228,7 @@
                 <i data-lucide="file-text"></i>
               </div>
               <h5 class="card-title">视频原文</h5>
-              <p class="card-desc">视频全文文本字幕</p>
+              <p class="card-desc">视频全文逐字稿</p>
             </div>
             
             <div class="tool-card card-ai" data-drawer="drawer-ai">
@@ -281,7 +236,7 @@
                 <i data-lucide="sparkles"></i>
               </div>
               <h5 class="card-title">AI 助教</h5>
-              <p class="card-desc">有问必答？随时问助教</p>
+              <p class="card-desc">有问题? 随时问助教</p>
             </div>
             
             <div class="tool-card card-ppt" data-drawer="drawer-ppt">
@@ -289,7 +244,7 @@
                 <i data-lucide="monitor"></i>
               </div>
               <h5 class="card-title">演示文稿</h5>
-              <p class="card-desc">核心知识及讲解</p>
+              <p class="card-desc">核心知识定格</p>
             </div>
             
             <div class="tool-card card-mindmap" data-drawer="drawer-mindmap">
@@ -313,7 +268,7 @@
                 <i data-lucide="layers"></i>
               </div>
               <h5 class="card-title">记忆闪卡</h5>
-              <p class="card-desc">精炼卡片，记忆重点</p>
+              <p class="card-desc">翻转卡片，记忆重点</p>
             </div>
             
           </div>
@@ -783,10 +738,260 @@
         </div>
       </div>
 
+      <!-- ==========================================================
+           7. Admin Panel Drawer (管理员配置面板)
+           ========================================================== -->
+      <div class="app-drawer" id="drawer-admin">
+        <div class="drawer-main">
+          <header class="drawer-header">
+            <div class="drawer-title-area">
+              <button class="back-to-apps-btn">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                退出配置
+              </button>
+              <div class="drawer-divider"></div>
+              <h4 class="drawer-title" style="color: #6366f1;">
+                <i data-lucide="settings" style="width: 16px; height: 16px;"></i>
+                管理员配置
+              </h4>
+            </div>
+          </header>
+          
+          <div class="drawer-body" style="background-color: #f8fafc; padding: 12px; overflow-y: auto; flex: 1;">
+            
+            <!-- Accordion Group -->
+            <div class="admin-accordions" style="display: flex; flex-direction: column; gap: 10px; padding-bottom: 20px;">
+                
+                <!-- Section 1: Base settings -->
+                <div class="admin-sec active">
+                  <div class="admin-sec-header">
+                    <span>1. 基础信息配置</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <div class="admin-form-group">
+                      <label>课程标题</label>
+                      <input type="text" id="admin-course-title" placeholder="请输入课程标题...">
+                    </div>
+                    <div class="admin-form-group">
+                      <label>课程类型标签</label>
+                      <input type="text" id="admin-course-badge" placeholder="例如：AI 互动课">
+                    </div>
+                    <div class="admin-form-group">
+                      <label>Dashscope API 密钥 (Key)</label>
+                      <input type="password" id="admin-api-key" placeholder="输入 sk-... 密钥">
+                    </div>
+                    <div class="admin-form-group">
+                      <label>课程编号 (Course ID)</label>
+                      <input type="text" id="admin-course-code" placeholder="例如：GEO-101">
+                    </div>
+                    <div class="admin-form-group">
+                      <label>授课老师</label>
+                      <input type="text" id="admin-teacher-name" placeholder="例如：李明 老师">
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 1.5: Student Roster settings -->
+                <div class="admin-sec">
+                  <div class="admin-sec-header">
+                    <span>1.5 允许登录的学生名单配置</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">在此配置允许进入该课程的学生学号和姓名对照表。</p>
+                    <div id="admin-students-list" style="display: flex; flex-direction: column; gap: 8px;">
+                      <!-- Dynamically filled -->
+                    </div>
+                    <button class="admin-add-btn" id="admin-add-student-btn" style="margin-top: 8px;">
+                      <i data-lucide="plus" style="width: 14px; height: 14px;"></i> 增加学生名单
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Section 2: Captions -->
+                <div class="admin-sec">
+                  <div class="admin-sec-header">
+                    <span>2. 视频字幕原文配置</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">时间戳单位为秒 (例如：64代表01:04)</p>
+                    <div id="admin-captions-list" style="display: flex; flex-direction: column; gap: 8px;">
+                      <!-- Dynamically filled -->
+                    </div>
+                    <button class="admin-add-btn" id="admin-add-caption-btn">
+                      <i data-lucide="plus" style="width: 14px; height: 14px;"></i> 增加字幕行
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Section 2.5: Segments (知识切片) -->
+                <div class="admin-sec">
+                  <div class="admin-sec-header">
+                    <span>2.5 视频知识切片配置 (Timeline Segment)</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <p style="font-size: 11px; color: var(--text-secondary); margin-bottom: 8px;">在此处上传/配置视频的时间轴重点、各分段大纲、配色主题及分类。</p>
+                    <div id="admin-segments-list" style="display: flex; flex-direction: column; gap: 12px;">
+                      <!-- Dynamically filled -->
+                    </div>
+                    <button class="admin-add-btn" id="admin-add-segment-btn">
+                      <i data-lucide="plus" style="width: 14px; height: 14px;"></i> 增加知识切片
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Section 3: PPT slides -->
+                <div class="admin-sec">
+                  <div class="admin-sec-header">
+                    <span>3. PPT 演示文稿课件</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <div style="border: 2px dashed #cbd5e1; border-radius: var(--radius-md); padding: 14px; text-align: center; cursor: pointer; background-color: white; margin-bottom: 12px;" id="admin-ppt-uploader-zone">
+                      <i data-lucide="image" style="color: var(--text-muted); margin-bottom: 4px;"></i>
+                      <span style="font-size: 12px; display: block; font-weight: 500;">批量上传/更新 PPT 截图</span>
+                      <span style="font-size: 10px; color: var(--text-muted)">支持 png, jpg 图片</span>
+                      <input type="file" id="admin-ppt-files" style="display: none;" accept="image/*" multiple>
+                    </div>
+                    <div id="admin-slides-list" style="display: flex; flex-direction: column; gap: 10px;">
+                      <!-- Dynamically filled -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 4: Mindmap -->
+                <div class="admin-sec">
+                  <div class="admin-sec-header">
+                    <span>4. 思维导图节点配置</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <div id="admin-mindmap-list" style="display: flex; flex-direction: column; gap: 10px;">
+                      <!-- Dynamically filled -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Section 5: Quizzes -->
+                <div class="admin-sec">
+                  <div class="admin-sec-header">
+                    <span>5. 随堂测试题配置</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <div id="admin-quizzes-list" style="display: flex; flex-direction: column; gap: 14px;">
+                      <!-- Dynamically filled -->
+                    </div>
+                    <button class="admin-add-btn" id="admin-add-quiz-btn" style="margin-top: 10px;">
+                      <i data-lucide="plus" style="width: 14px; height: 14px;"></i> 增加单选题
+                    </button>
+                  </div>
+                </div>
+
+                <!-- Section 6: Flashcards -->
+                <div class="admin-sec">
+                  <div class="admin-sec-header">
+                    <span>6. 记忆闪卡配置</span>
+                    <i data-lucide="chevron-down" class="sec-chevron"></i>
+                  </div>
+                  <div class="admin-sec-body">
+                    <div id="admin-flashcards-list" style="display: flex; flex-direction: column; gap: 12px;">
+                      <!-- Dynamically filled -->
+                    </div>
+                    <button class="admin-add-btn" id="admin-add-card-btn" style="margin-top: 10px;">
+                      <i data-lucide="plus" style="width: 14px; height: 14px;"></i> 增加记忆闪卡
+                    </button>
+                  </div>
+                </div>
+
+            </div>
+          </div>
+          
+          <!-- Footer Action Buttons -->
+          <div class="admin-footer-actions" style="border-top: 1px solid var(--border-color); padding: 12px; display: flex; gap: 10px; background-color: white;">
+            <button class="admin-footer-btn btn-reset" id="admin-reset-data-btn">
+              <i data-lucide="rotate-ccw" style="width: 14px; height: 14px;"></i> 重置数据
+            </button>
+            <button class="admin-footer-btn btn-save" id="admin-save-config-btn" style="flex: 1;">
+              <i data-lucide="save" style="width: 14px; height: 14px;"></i> 保存修改并应用
+            </button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </main>
 
+  <!-- Student Login Overlay -->
+  <div class="login-fullscreen-overlay" id="student-login-overlay" style="display: none;">
+    <div class="login-card">
+      <div class="login-logo-wrapper">
+        <div class="login-logo-icon">
+          <i data-lucide="graduation-cap" style="width: 24px; height: 24px; color: white;"></i>
+        </div>
+        <h3 class="login-app-title">AI 互动课堂</h3>
+      </div>
+      <p class="login-subtitle">请输入您的学籍信息与课程编号登录进入学习</p>
+      
+      <div class="login-form">
+        <div class="login-field-group">
+          <label for="login-student-id">学号 (Student ID)</label>
+          <div class="login-input-wrapper">
+            <i data-lucide="hash" style="width: 15px; height: 15px;"></i>
+            <input type="text" id="login-student-id" placeholder="输入学号，如 2026001">
+          </div>
+        </div>
+        
+        <div class="login-field-group">
+          <label for="login-student-name">姓名 (Name)</label>
+          <div class="login-input-wrapper">
+            <i data-lucide="user" style="width: 15px; height: 15px;"></i>
+            <input type="text" id="login-student-name" placeholder="输入真实姓名，如 张三">
+          </div>
+        </div>
+        
+        <div class="login-field-group">
+          <label for="login-course-code">课程编号 (Course ID)</label>
+          <div class="login-input-wrapper">
+            <i data-lucide="book-open" style="width: 15px; height: 15px;"></i>
+            <input type="text" id="login-course-code" placeholder="输入课程编号，如 GEO-101">
+          </div>
+        </div>
+        
+        <div class="login-error-tip" id="login-error-msg" style="display: none;"></div>
+        
+        <button class="login-submit-btn" id="login-submit-btn">
+          <span>登录并开始学习</span>
+          <i data-lucide="arrow-right" style="width: 15px; height: 15px;"></i>
+        </button>
+        
+        <div class="login-admin-entry">
+          <button type="button" id="login-admin-btn" class="login-admin-link-btn">
+            <i data-lucide="settings" style="width: 12px; height: 12px;"></i>
+            管理员配置入口
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Password Input Modal -->
+  <div class="modal-overlay" id="password-modal" style="display: none;">
+    <div class="modal-card">
+      <h4 class="modal-title">🔑 管理员登录</h4>
+      <p class="modal-desc">请输入管理员密码进行课件配置（默认：admin）</p>
+      <input type="password" id="admin-password-input" class="modal-input" placeholder="输入密码...">
+      <div class="modal-actions">
+        <button class="modal-btn btn-cancel" id="password-cancel-btn">取消</button>
+        <button class="modal-btn btn-confirm" id="password-confirm-btn">确认</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Main JavaScript File -->
-  <script src="app.js"></script>
+  <script src="app.js?v=3.0"></script>
 </body>
 </html>
