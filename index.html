@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>中国主要河流地理特征介绍 - AI 互动课</title>
+  
+  <!-- Font Styles -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- App Header -->
+  <header class="app-header">
+    <div class="header-left">
+      <a href="#" class="logo-container">
+        <div class="logo-icon">K</div>
+        <span class="logo-text">课件帮</span>
+      </a>
+    </div>
+    
+    <div class="header-center">
+      <span class="course-title">中国主要河流地理特征介绍</span>
+      <span class="course-badge">
+        <i data-lucide="sparkles" style="width: 13px; height: 13px;"></i>
+        AI 互动课
+      </span>
+    </div>
+    
+    <div class="header-right">
+      <div class="user-profile">
+        <span class="avatar">U</span>
+        <span>个人学习版</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- App Grid Layout -->
+  <main class="app-container">
+    
+    <!-- Left Column: Video & Timeline & Segments -->
+    <div class="main-content">
+      
+      <!-- Video Section -->
+      <section class="video-section" id="player-container">
+        
+        <!-- Video Upload Drag and Drop Zone -->
+        <div class="video-upload-zone" id="upload-zone">
+          <div class="upload-icon-wrapper">
+            <i data-lucide="video" style="width: 36px; height: 36px;"></i>
+          </div>
+          <h3 class="upload-title">点击或拖拽载入课件视频</h3>
+          <p class="upload-desc">支持 MP4, WebM 等主流视频格式。视频将完全在本地浏览器中播放，不会上传至任何服务器。</p>
+          <input type="file" id="video-file-input" class="video-upload-input" accept="video/*">
+        </div>
+        
+        <!-- Native Video Element -->
+        <video id="main-video" preload="metadata" playsinline>
+          <!-- Default fallback nature stream video so it plays instantly for demonstration -->
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4" type="video/mp4">
+        </video>
+        
+        <!-- Styled Custom Video Controls -->
+        <div class="custom-controls">
+          <!-- Progress Scrubber -->
+          <div class="progress-container" id="video-progress-container">
+            <div class="progress-bar-fill" id="video-progress-fill"></div>
+            <div class="progress-handle" id="video-progress-handle"></div>
+          </div>
+          
+          <div class="controls-row">
+            <div class="controls-left">
+              <button class="video-btn" id="play-pause-btn" title="播放 (空格)">
+                <i data-lucide="play"></i>
+              </button>
+              <div class="time-display">
+                <span id="current-time">0:00</span> / <span id="duration-time">13:53</span>
+              </div>
+            </div>
+            
+            <div class="controls-right">
+              <!-- Playback Speed -->
+              <div class="speed-selector">
+                <button class="speed-btn" id="speed-toggle-btn">1.0x</button>
+                <div class="speed-options" id="speed-dropdown">
+                  <button class="speed-opt" data-speed="0.5">0.5x</button>
+                  <button class="speed-opt active" data-speed="1.0">1.0x</button>
+                  <button class="speed-opt" data-speed="1.25">1.25x</button>
+                  <button class="speed-opt" data-speed="1.5">1.5x</button>
+                  <button class="speed-opt" data-speed="2.0">2.0x</button>
+                </div>
+              </div>
+              
+              <!-- Volume -->
+              <div class="volume-container">
+                <button class="video-btn" id="mute-btn" title="静音">
+                  <i data-lucide="volume-2"></i>
+                </button>
+                <input type="range" class="volume-slider" id="volume-bar" min="0" max="1" step="0.05" value="0.8">
+              </div>
+              
+              <!-- Fullscreen -->
+              <button class="video-btn" id="fullscreen-btn" title="全屏">
+                <i data-lucide="maximize"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Tags & Search Section -->
+      <section class="tags-section">
+        <div class="search-input-wrapper">
+          <i data-lucide="plus"></i>
+          <input type="text" placeholder="输入感兴趣的知识点/话题..." class="search-field" id="topic-search-input">
+        </div>
+        <div class="tag-pills">
+          <span class="tag-pill active" data-tag="all">核心要点</span>
+          <span class="tag-pill" data-tag="distribution">水系分布</span>
+          <span class="tag-pill" data-tag="landform">河流地貌</span>
+          <span class="tag-pill" data-tag="ecology">生态价值</span>
+          <span class="tag-pill" data-tag="conservation">保护治理</span>
+        </div>
+      </section>
+
+      <!-- Multi-Colored Timeline Bar -->
+      <section class="timeline-section">
+        <!-- Colored segments representing the course sections -->
+        <div class="timeline-bar-container" id="timeline-scrubber" title="点击跳转视频进度">
+          <!-- green segment (0:00 - 1:04) -> width = 1.07/13.88 ~ 7.7% -->
+          <div class="timeline-segment seg-green" style="flex-grow: 64;" title="中国河流总体特征 (00:00 - 01:04)"></div>
+          <!-- purple segment (1:04 - 2:09) -> width = 1.08/13.88 ~ 7.8% -->
+          <div class="timeline-segment seg-purple" style="flex-grow: 65;" title="中国七大水系概况 (01:04 - 02:09)"></div>
+          <!-- pink segment (2:09 - 6:55) -> width = 4.77/13.88 ~ 34.3% -->
+          <div class="timeline-segment seg-pink" style="flex-grow: 286;" title="中国典型河流导学 (02:09 - 06:55)"></div>
+          <!-- orange segment (6:55 - 9:01) -> width = 2.10/13.88 ~ 15.1% -->
+          <div class="timeline-segment seg-orange" style="flex-grow: 126;" title="河流价值与保护治理 (06:55 - 09:01)"></div>
+          <!-- blue segment (9:01 - 13:53) -> width = 4.87/13.88 ~ 35.1% -->
+          <div class="timeline-segment seg-blue" style="flex-grow: 292;" title="尾声与延伸拓展 (09:01 - 13:53)"></div>
+          
+          <!-- Scrubber playhead overlay -->
+          <div class="timeline-scrubber-overlay">
+            <div class="timeline-playhead" id="timeline-head"></div>
+          </div>
+        </div>
+        
+        <div class="timeline-time-labels">
+          <span>00:00</span>
+          <span>13:53</span>
+        </div>
+      </section>
+
+      <!-- Segment list -->
+      <section class="segments-list" id="segments-list-container">
+        <!-- Segment 1: Green -->
+        <div class="segment-item seg-green-item" data-start="64" data-tag-category="distribution">
+          <div class="segment-header">
+            <div class="segment-title-wrapper">
+              <span class="segment-dot dot-green"></span>
+              <h4 class="segment-title">中国河流总体特征</h4>
+              <div class="segment-tags">
+                <span class="seg-subtag">流域分布</span>
+                <span class="seg-subtag">因果关系</span>
+              </div>
+            </div>
+            <div class="segment-meta">
+              <span class="segment-time">01:04</span>
+              <i data-lucide="chevron-down" class="segment-chevron"></i>
+            </div>
+          </div>
+          <div class="segment-body">
+            <p>中国地势西高东低，呈三级阶梯状分布，导致大多数河流自西向东注入太平洋。我国江河湖泊众多，流域面积在100平方公里以上的河流有5万多条。外流区约占全国陆地面积的2/3，内流区约占1/3。河流的水文特征深受季风气候影响，南方河流径流量大、汛期长、含沙量小、无结冰期；北方河流径流量较小、汛期短、含沙量大、有结冰期。</p>
+          </div>
+        </div>
+
+        <!-- Segment 2: Purple -->
+        <div class="segment-item seg-purple-item" data-start="129" data-tag-category="distribution">
+          <div class="segment-header">
+            <div class="segment-title-wrapper">
+              <span class="segment-dot dot-purple"></span>
+              <h4 class="segment-title">中国七大水系概况</h4>
+              <div class="segment-tags">
+                <span class="seg-subtag">七大水系</span>
+                <span class="seg-subtag">区域作用</span>
+              </div>
+            </div>
+            <div class="segment-meta">
+              <span class="segment-time">02:09</span>
+              <i data-lucide="chevron-down" class="segment-chevron"></i>
+            </div>
+          </div>
+          <div class="segment-body">
+            <p>我国主要的七大水系包括：长江水系、黄河水系、珠江水系、淮河水系、海河水系、辽河水系和松花江水系。各大水系分布在不同的地理区域，为当地的工农业生产、城市供水以及生态系统提供着基础水资源。长江是我国第一大河，流域面积广阔；黄河是中华民族的母亲河，泥沙含量极高；珠江水系年径流量仅次于长江，航运价值极高。</p>
+          </div>
+        </div>
+
+        <!-- Segment 3: Pink -->
+        <div class="segment-item seg-pink-item" data-start="415" data-tag-category="landform">
+          <div class="segment-header">
+            <div class="segment-title-wrapper">
+              <span class="segment-dot dot-pink"></span>
+              <h4 class="segment-title">中国典型河流导学</h4>
+              <div class="segment-tags">
+                <span class="seg-subtag">游标讲解</span>
+                <span class="seg-subtag">一条河的生老病死</span>
+              </div>
+            </div>
+            <div class="segment-meta">
+              <span class="segment-time">06:55</span>
+              <i data-lucide="chevron-down" class="segment-chevron"></i>
+            </div>
+          </div>
+          <div class="segment-body">
+            <p>通过“游标”的视角深入剖析长江与黄河这两条典型河流的生命周期与地理演变。从青藏高原的雪山源头，经历中游的峡谷冲击、黄土高原的泥沙淘洗，再到下游宽阔的冲积平原和入海口三角洲。详细探讨流水侵蚀、搬运和堆积作用是如何塑造出壶口瀑布、长江三峡、地上悬河等独特河流地貌的。</p>
+          </div>
+        </div>
+
+        <!-- Segment 4: Orange -->
+        <div class="segment-item seg-orange-item" data-start="541" data-tag-category="ecology conservation">
+          <div class="segment-header">
+            <div class="segment-title-wrapper">
+              <span class="segment-dot dot-orange"></span>
+              <h4 class="segment-title">河流价值与保护治理</h4>
+              <div class="segment-tags">
+                <span class="seg-subtag">生态价值</span>
+                <span class="seg-subtag">保护措施</span>
+              </div>
+            </div>
+            <div class="segment-meta">
+              <span class="segment-time">09:01</span>
+              <i data-lucide="chevron-down" class="segment-chevron"></i>
+            </div>
+          </div>
+          <div class="segment-body">
+            <p>江河不仅孕育了灿烂的水文化，更提供了防洪、灌溉、发电、航运和渔业等巨大经济生态价值。然而，过度开发、水体污染、水土流失及泥沙淤积也给江河生态带了严峻挑战。当前我国推行“河长制”、实施“长江十年禁渔”以及黄河流域生态保护和高质量发展规划，通过退田还湖、水源涵养林建设以及流域协同治理，保障大江大河的生态安全与可持续发展。</p>
+          </div>
+        </div>
+      </section>
+    </div>
+    
+    <!-- Right Column: Sidebar Panels & Sliding Drawers -->
+    <div class="sidebar-panel" id="sidebar-container">
+      
+      <!-- Primary Tab Header -->
+      <nav class="sidebar-tabs">
+        <button class="tab-btn active" id="tab-btn-content" data-tab="pane-content">教学内容</button>
+        <button class="tab-btn" id="tab-btn-discuss" data-tab="pane-discuss">课程讨论</button>
+      </nav>
+      
+      <!-- Tab Contents Area -->
+      <div class="sidebar-content">
+        
+        <!-- Tab 1 Pane: Study Tools (教学内容) -->
+        <div class="tab-pane active" id="pane-content">
+          <div class="space-header">
+            <h4 class="space-title">研学空间</h4>
+            <span class="space-badge">6 个可用</span>
+          </div>
+          
+          <!-- 6 Grid Cards -->
+          <div class="cards-grid">
+            
+            <div class="tool-card card-transcript" data-drawer="drawer-transcript">
+              <div class="card-icon-wrapper">
+                <i data-lucide="file-text"></i>
+              </div>
+              <h5 class="card-title">视频原文</h5>
+              <p class="card-desc">视频全文文本字幕</p>
+            </div>
+            
+            <div class="tool-card card-ai" data-drawer="drawer-ai">
+              <div class="card-icon-wrapper">
+                <i data-lucide="sparkles"></i>
+              </div>
+              <h5 class="card-title">AI 助教</h5>
+              <p class="card-desc">有问必答？随时问助教</p>
+            </div>
+            
+            <div class="tool-card card-ppt" data-drawer="drawer-ppt">
+              <div class="card-icon-wrapper">
+                <i data-lucide="monitor"></i>
+              </div>
+              <h5 class="card-title">演示文稿</h5>
+              <p class="card-desc">核心知识及讲解</p>
+            </div>
+            
+            <div class="tool-card card-mindmap" data-drawer="drawer-mindmap">
+              <div class="card-icon-wrapper">
+                <i data-lucide="git-branch"></i>
+              </div>
+              <h5 class="card-title">思维导图</h5>
+              <p class="card-desc">可视化知识脉络</p>
+            </div>
+            
+            <div class="tool-card card-quiz" data-drawer="drawer-quiz">
+              <div class="card-icon-wrapper">
+                <i data-lucide="check-square"></i>
+              </div>
+              <h5 class="card-title">随堂练习</h5>
+              <p class="card-desc">即学即练，查漏补缺</p>
+            </div>
+            
+            <div class="tool-card card-flashcards" data-drawer="drawer-flashcards">
+              <div class="card-icon-wrapper">
+                <i data-lucide="layers"></i>
+              </div>
+              <h5 class="card-title">记忆闪卡</h5>
+              <p class="card-desc">精炼卡片，记忆重点</p>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Tab 2 Pane: Discussions (课程讨论) -->
+        <div class="tab-pane" id="pane-discuss">
+          <div class="discussion-pane">
+            <div class="comment-input-area">
+              <textarea placeholder="在这里写下你对本章节的疑问或见解..." class="comment-textarea" id="comment-text-input"></textarea>
+              <div class="comment-actions">
+                <span class="comment-stamp" id="comment-time-btn" title="点击更新到视频当前播放时间">
+                  <i data-lucide="clock" style="width: 12px; height: 12px;"></i>
+                  <span id="comment-timestamp">00:00</span>
+                </span>
+                <button class="comment-btn" id="submit-comment-btn">发表评论</button>
+              </div>
+            </div>
+            
+            <!-- Comment nodes list -->
+            <div class="comments-list" id="comments-list-box">
+              
+              <div class="comment-node">
+                <div class="comment-avatar">李</div>
+                <div class="comment-content">
+                  <div class="comment-header-row">
+                    <span class="comment-author">李明 (老师)</span>
+                    <span class="comment-time-badge" data-time="64">01:04</span>
+                  </div>
+                  <p class="comment-text">大家注意！这里的“外流区与内流区划分”是中考和高考常考点。外流区水汽主要来自太平洋和印度洋季风，而内流区河流多为冰雪融水补给。</p>
+                  <span class="comment-date">3分钟前</span>
+                </div>
+              </div>
+              
+              <div class="comment-node">
+                <div class="comment-avatar">张</div>
+                <div class="comment-content">
+                  <div class="comment-header-row">
+                    <span class="comment-author">张华</span>
+                    <span class="comment-time-badge" data-time="129">02:09</span>
+                  </div>
+                  <p class="comment-text">老师，七大水系中淮河算是一条比较独特的河流吧？没有直接的独立入海口，而是通过大运河和长江入海。</p>
+                  <span class="comment-date">20分钟前</span>
+                </div>
+              </div>
+
+              <div class="comment-node">
+                <div class="comment-avatar">王</div>
+                <div class="comment-content">
+                  <div class="comment-header-row">
+                    <span class="comment-author">王小川</span>
+                    <span class="comment-time-badge" data-time="541">09:01</span>
+                  </div>
+                  <p class="comment-text">三峡大坝的防洪排沙作用在“河流保护与开发”一节里讲得很清楚，对长江中下游的防洪价值实在太大了！</p>
+                  <span class="comment-date">1小时前</span>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+        
+      </div>
+
+      <!-- ==========================================================
+           1. Video Transcript Drawer Panel (视频原文)
+           ========================================================== -->
+      <div class="app-drawer" id="drawer-transcript">
+        <div class="drawer-main">
+          <header class="drawer-header">
+            <div class="drawer-title-area">
+              <button class="back-to-apps-btn">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                应用
+              </button>
+              <div class="drawer-divider"></div>
+              <h4 class="drawer-title" style="color: #ef4444;">
+                <i data-lucide="file-text" style="width: 16px; height: 16px;"></i>
+                视频原文
+              </h4>
+            </div>
+          </header>
+          
+          <div class="drawer-body">
+            <div class="transcript-wrapper" id="transcript-container-box">
+              <!-- Caption blocks populated by app.js -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Vertical Quick Switch Sidebar -->
+        <div class="drawer-sidebar">
+          <div class="drawer-nav-item nav-transcript active" data-target="drawer-transcript" title="视频原文"><i data-lucide="file-text"></i></div>
+          <div class="drawer-nav-item nav-ai" data-target="drawer-ai" title="AI助教"><i data-lucide="sparkles"></i></div>
+          <div class="drawer-nav-item nav-ppt" data-target="drawer-ppt" title="演示文稿"><i data-lucide="monitor"></i></div>
+          <div class="drawer-nav-item nav-mindmap" data-target="drawer-mindmap" title="思维导图"><i data-lucide="git-branch"></i></div>
+          <div class="drawer-nav-item nav-quiz" data-target="drawer-quiz" title="随堂练习"><i data-lucide="check-square"></i></div>
+          <div class="drawer-nav-item nav-flashcards" data-target="drawer-flashcards" title="记忆闪卡"><i data-lucide="layers"></i></div>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+           2. AI Assistant Drawer Panel (AI助教)
+           ========================================================== -->
+      <div class="app-drawer" id="drawer-ai">
+        <div class="drawer-main">
+          <header class="drawer-header">
+            <div class="drawer-title-area">
+              <button class="back-to-apps-btn">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                应用
+              </button>
+              <div class="drawer-divider"></div>
+              <h4 class="drawer-title" style="color: var(--color-cat-green);">
+                <i data-lucide="sparkles" style="width: 16px; height: 16px;"></i>
+                AI 助教
+              </h4>
+            </div>
+          </header>
+          
+          <div class="drawer-body">
+            <div class="ai-pane">
+              
+              <!-- API settings dropdown for custom key edits if needed -->
+              <div class="api-key-banner" id="api-banner" style="display: none;">
+                <span>💡 使用的 API：DashScope (qwen3-vl-plus)</span>
+                <div class="api-key-input-row">
+                  <input type="password" id="api-key-val" class="api-key-input" placeholder="输入 sk- 密钥...">
+                  <button class="api-key-save-btn" id="api-key-save-btn">保存</button>
+                </div>
+              </div>
+              
+              <div class="ai-scroll-area" id="ai-chat-box">
+                <!-- Welcome UI -->
+                <div class="ai-welcome" id="ai-welcome-screen">
+                  <div class="ai-welcome-avatar">
+                    <i data-lucide="sparkles"></i>
+                  </div>
+                  <h4 class="ai-welcome-title">你好，我是你的 AI 助教</h4>
+                  <p class="ai-welcome-desc">我可以根据视频内容回答问题，解释核心概念，并帮你快速定位关键片段。</p>
+                  
+                  <div class="ai-suggestions">
+                    <button class="ai-suggest-btn">中国河流的总体地理特征有哪些？</button>
+                    <button class="ai-suggest-btn">中国七大水系各自有什么特点？</button>
+                    <button class="ai-suggest-btn">针对中国河流保护面临的挑战，有哪些应对措施？</button>
+                  </div>
+                </div>
+                
+                <!-- Chat messages container -->
+                <div id="ai-messages-container" style="display: flex; flex-direction: column; gap: 16px; width: 100%;"></div>
+              </div>
+              
+              <div class="ai-input-area">
+                <div class="ai-chat-input-wrapper">
+                  <input type="text" placeholder="关于视频内容提问..." class="ai-chat-input" id="ai-user-input">
+                </div>
+                <button class="ai-send-btn" id="ai-send-btn" title="发送消息 (回车)">
+                  <i data-lucide="send" style="width: 16px; height: 16px;"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Vertical Quick Switch Sidebar -->
+        <div class="drawer-sidebar">
+          <div class="drawer-nav-item nav-transcript" data-target="drawer-transcript" title="视频原文"><i data-lucide="file-text"></i></div>
+          <div class="drawer-nav-item nav-ai active" data-target="drawer-ai" title="AI助教"><i data-lucide="sparkles"></i></div>
+          <div class="drawer-nav-item nav-ppt" data-target="drawer-ppt" title="演示文稿"><i data-lucide="monitor"></i></div>
+          <div class="drawer-nav-item nav-mindmap" data-target="drawer-mindmap" title="思维导图"><i data-lucide="git-branch"></i></div>
+          <div class="drawer-nav-item nav-quiz" data-target="drawer-quiz" title="随堂练习"><i data-lucide="check-square"></i></div>
+          <div class="drawer-nav-item nav-flashcards" data-target="drawer-flashcards" title="记忆闪卡"><i data-lucide="layers"></i></div>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+           3. Presentation PPT Drawer Panel (演示文稿)
+           ========================================================== -->
+      <div class="app-drawer" id="drawer-ppt">
+        <div class="drawer-main">
+          <header class="drawer-header">
+            <div class="drawer-title-area">
+              <button class="back-to-apps-btn">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                应用
+              </button>
+              <div class="drawer-divider"></div>
+              <h4 class="drawer-title" style="color: var(--color-cat-orange);">
+                <i data-lucide="monitor" style="width: 16px; height: 16px;"></i>
+                演示文稿
+              </h4>
+            </div>
+          </header>
+          
+          <div class="drawer-body">
+            
+            <!-- PPT Upload zone -->
+            <div class="ppt-import-box" id="ppt-drop-zone">
+              <i data-lucide="upload-cloud"></i>
+              <span class="ppt-import-title">批量导入您的 PPT 截图</span>
+              <span class="ppt-import-desc">支持多选 png, jpg 等幻灯片图片。导入后将完全在本地替换演示列表。</span>
+              <input type="file" id="ppt-file-input" class="video-upload-input" accept="image/*" multiple>
+            </div>
+            
+            <!-- Slides stats and switches -->
+            <div class="ppt-toolbar">
+              <span class="ppt-stats" id="ppt-slides-count">共 10 页课件</span>
+              <div class="ppt-follow-sync">
+                <span>跟随播放</span>
+                <label style="position: relative; display: inline-block; width: 34px; height: 20px;">
+                  <input type="checkbox" id="ppt-sync-toggle" checked style="opacity: 0; width: 0; height: 0;">
+                  <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: #ccc; transition: .3s; border-radius: 20px;" id="ppt-sync-slider"></span>
+                </label>
+              </div>
+            </div>
+            
+            <div class="ppt-slides-list" id="ppt-slides-container-box">
+              <!-- PowerPoint slide cards will be rendered here dynamically -->
+            </div>
+          </div>
+        </div>
+        
+        <!-- Vertical Quick Switch Sidebar -->
+        <div class="drawer-sidebar">
+          <div class="drawer-nav-item nav-transcript" data-target="drawer-transcript" title="视频原文"><i data-lucide="file-text"></i></div>
+          <div class="drawer-nav-item nav-ai" data-target="drawer-ai" title="AI助教"><i data-lucide="sparkles"></i></div>
+          <div class="drawer-nav-item nav-ppt active" data-target="drawer-ppt" title="演示文稿"><i data-lucide="monitor"></i></div>
+          <div class="drawer-nav-item nav-mindmap" data-target="drawer-mindmap" title="思维导图"><i data-lucide="git-branch"></i></div>
+          <div class="drawer-nav-item nav-quiz" data-target="drawer-quiz" title="随堂练习"><i data-lucide="check-square"></i></div>
+          <div class="drawer-nav-item nav-flashcards" data-target="drawer-flashcards" title="记忆闪卡"><i data-lucide="layers"></i></div>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+           4. Mindmap Drawer Panel (思维导图)
+           ========================================================== -->
+      <div class="app-drawer" id="drawer-mindmap">
+        <div class="drawer-main">
+          <header class="drawer-header">
+            <div class="drawer-title-area">
+              <button class="back-to-apps-btn">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                应用
+              </button>
+              <div class="drawer-divider"></div>
+              <h4 class="drawer-title" style="color: var(--color-cat-purple);">
+                <i data-lucide="git-branch" style="width: 16px; height: 16px;"></i>
+                思维导图
+              </h4>
+            </div>
+          </header>
+          
+          <div class="drawer-body" style="padding: 10px;">
+            <div class="mindmap-pane">
+              <div class="mindmap-hint-bar">
+                <i data-lucide="info" style="width: 14px; height: 14px;"></i>
+                <span>拖拽画布 · 双击或滚轮缩放 · 点击节点播放</span>
+              </div>
+              
+              <!-- Map Canvas Frame -->
+              <div class="mindmap-canvas-container" id="mindmap-canvas-frame">
+                <svg class="mindmap-svg" id="mindmap-svg-element">
+                  <!-- Transformed group containing links and nodes -->
+                  <g id="mindmap-viewport-group">
+                    <!-- SVG Link Paths will be rendered here dynamically -->
+                    <g id="mindmap-links-group"></g>
+                    <!-- SVG Node Cards will be rendered here dynamically -->
+                    <g id="mindmap-nodes-group"></g>
+                  </g>
+                </svg>
+                
+                <!-- Zoom Navigation Controllers overlay -->
+                <div class="mindmap-controls">
+                  <button class="map-ctrl-btn" id="map-zoom-in" title="放大"><i data-lucide="plus"></i></button>
+                  <button class="map-ctrl-btn" id="map-zoom-reset" title="复位"><i data-lucide="refresh-cw" style="width: 14px; height: 14px;"></i></button>
+                  <button class="map-ctrl-btn" id="map-zoom-out" title="缩小"><i data-lucide="minus"></i></button>
+                  <button class="map-ctrl-btn btn-fullscreen" id="map-fullscreen" title="全屏画布"><i data-lucide="maximize-2" style="width: 14px; height: 14px;"></i></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <!-- Vertical Quick Switch Sidebar -->
+        <div class="drawer-sidebar">
+          <div class="drawer-nav-item nav-transcript" data-target="drawer-transcript" title="视频原文"><i data-lucide="file-text"></i></div>
+          <div class="drawer-nav-item nav-ai" data-target="drawer-ai" title="AI助教"><i data-lucide="sparkles"></i></div>
+          <div class="drawer-nav-item nav-ppt" data-target="drawer-ppt" title="演示文稿"><i data-lucide="monitor"></i></div>
+          <div class="drawer-nav-item nav-mindmap active" data-target="drawer-mindmap" title="思维导图"><i data-lucide="git-branch"></i></div>
+          <div class="drawer-nav-item nav-quiz" data-target="drawer-quiz" title="随堂练习"><i data-lucide="check-square"></i></div>
+          <div class="drawer-nav-item nav-flashcards" data-target="drawer-flashcards" title="记忆闪卡"><i data-lucide="layers"></i></div>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+           5. Classroom Quiz Drawer Panel (随堂练习)
+           ========================================================== -->
+      <div class="app-drawer" id="drawer-quiz">
+        <div class="drawer-main">
+          <header class="drawer-header">
+            <div class="drawer-title-area">
+              <button class="back-to-apps-btn">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                应用
+              </button>
+              <div class="drawer-divider"></div>
+              <h4 class="drawer-title" style="color: var(--color-cat-blue);">
+                <i data-lucide="check-square" style="width: 16px; height: 16px;"></i>
+                随堂练习
+              </h4>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-secondary);">
+              <span>即学即练</span>
+              <label style="position: relative; display: inline-block; width: 34px; height: 20px;">
+                <input type="checkbox" id="quiz-instant-toggle" checked style="opacity: 0; width: 0; height: 0;">
+                <span style="position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; background-color: var(--color-primary); transition: .3s; border-radius: 20px;" id="quiz-instant-slider"></span>
+              </label>
+            </div>
+          </header>
+          
+          <div class="drawer-body">
+            <!-- Active Quiz view -->
+            <div class="quiz-question-card" id="quiz-active-view">
+              <div class="quiz-header">
+                <span class="quiz-progress-label">Question <span class="quiz-progress-num" id="quiz-current-num">1</span> / <span id="quiz-total-num">10</span></span>
+              </div>
+              
+              <div class="quiz-progress-bar">
+                <div class="quiz-progress-fill" id="quiz-progress-indicator"></div>
+              </div>
+              
+              <h4 class="quiz-question-text" id="quiz-question-text">中国三大流域区中，占比最小的是哪一个？</h4>
+              
+              <div class="quiz-options-list" id="quiz-options-box">
+                <!-- Question option buttons -->
+              </div>
+              
+              <!-- Quiz explanation box hidden until selection -->
+              <div class="quiz-explanation-box" id="quiz-explanation-box" style="display: none;">
+                <span class="explanation-title" id="explanation-outcome-title">解析</span>
+                <p class="explanation-body" id="quiz-explanation-text">额尔齐斯河是我国唯一流入北冰洋的河流...</p>
+              </div>
+              
+              <div class="quiz-footer">
+                <button class="quiz-hint-btn" id="quiz-hint-btn">
+                  <i data-lucide="help-circle" style="width: 14px; height: 14px;"></i>
+                  提示
+                </button>
+                
+                <div class="quiz-nav-btns">
+                  <button class="quiz-btn quiz-btn-prev" id="quiz-prev-btn" disabled>上一题</button>
+                  <button class="quiz-btn quiz-btn-next" id="quiz-next-btn">下一题</button>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Completed results view -->
+            <div class="quiz-results-card" id="quiz-results-view" style="display: none;">
+              <div class="score-ring" id="results-score-ring">
+                <span class="score-text-val" id="results-score-num">80</span>
+              </div>
+              <h4 class="results-title" id="results-title-text">相当不错！</h4>
+              <p class="results-stats" id="results-stats-text">答对 8 题 / 共 10 题</p>
+              <button class="quiz-restart-btn" id="quiz-restart-btn">重新测试</button>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Vertical Quick Switch Sidebar -->
+        <div class="drawer-sidebar">
+          <div class="drawer-nav-item nav-transcript" data-target="drawer-transcript" title="视频原文"><i data-lucide="file-text"></i></div>
+          <div class="drawer-nav-item nav-ai" data-target="drawer-ai" title="AI助教"><i data-lucide="sparkles"></i></div>
+          <div class="drawer-nav-item nav-ppt" data-target="drawer-ppt" title="演示文稿"><i data-lucide="monitor"></i></div>
+          <div class="drawer-nav-item nav-mindmap" data-target="drawer-mindmap" title="思维导图"><i data-lucide="git-branch"></i></div>
+          <div class="drawer-nav-item nav-quiz active" data-target="drawer-quiz" title="随堂练习"><i data-lucide="check-square"></i></div>
+          <div class="drawer-nav-item nav-flashcards" data-target="drawer-flashcards" title="记忆闪卡"><i data-lucide="layers"></i></div>
+        </div>
+      </div>
+
+      <!-- ==========================================================
+           6. Flashcards Drawer Panel (记忆闪卡)
+           ========================================================== -->
+      <div class="app-drawer" id="drawer-flashcards">
+        <div class="drawer-main">
+          <header class="drawer-header">
+            <div class="drawer-title-area">
+              <button class="back-to-apps-btn">
+                <i data-lucide="chevron-left" style="width: 16px; height: 16px;"></i>
+                应用
+              </button>
+              <div class="drawer-divider"></div>
+              <h4 class="drawer-title" style="color: #a855f7;">
+                <i data-lucide="layers" style="width: 16px; height: 16px;"></i>
+                记忆闪卡
+              </h4>
+            </div>
+          </header>
+          
+          <div class="drawer-body">
+            
+            <div class="flashcard-question-area" id="flashcard-active-view">
+              <div class="quiz-header" style="width: 100%; margin-bottom: 0;">
+                <span class="quiz-progress-label">Review <span class="quiz-progress-num" id="card-current-num" style="color: #a855f7;">1</span> / <span id="card-total-num">10</span></span>
+              </div>
+              
+              <div class="quiz-progress-bar" style="width: 100%;">
+                <div class="quiz-progress-fill" id="card-progress-indicator" style="background-color: #a855f7; width: 10%;"></div>
+              </div>
+              
+              <!-- 3D Card flips on click -->
+              <div class="flashcard-3d-scene" id="flashcard-flip-trigger">
+                <div class="flashcard-3d-container" id="flashcard-inner-box">
+                  <!-- Front Side -->
+                  <div class="flashcard-face face-front">
+                    <div class="flashcard-q-badge">Q</div>
+                    <div class="flashcard-text" id="card-front-text">中国三大流域区中，面积占比最小的是哪一个？</div>
+                    <span class="flashcard-hint">点击翻转查看答案</span>
+                  </div>
+                  
+                  <!-- Back Side -->
+                  <div class="flashcard-face face-back">
+                    <div class="flashcard-q-badge">A</div>
+                    <div class="flashcard-text" id="card-back-text">北冰洋流域。
+                    
+                    解析：我国外流区可分为太平洋流域（占外流区总面积的58%）、印度洋流域（占6.4%）和北冰洋流域（占0.5%）。唯一流向北冰洋的是额尔齐斯河，其在我国境内的流域面积最小。</div>
+                    <span class="flashcard-hint" style="color: var(--color-primary);">点击卡片翻回正面</span>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Action feedback buttons -->
+              <div class="flashcard-actions">
+                <button class="flashcard-btn flashcard-btn-blur" id="card-action-fuzzy">
+                  <i data-lucide="frown" style="width: 15px; height: 15px;"></i>
+                  有点模糊
+                </button>
+                <button class="flashcard-btn flashcard-btn-know" id="card-action-know">
+                  <i data-lucide="check" style="width: 15px; height: 15px;"></i>
+                  这题我会
+                </button>
+              </div>
+            </div>
+            
+            <!-- Flashcards completions view -->
+            <div class="quiz-results-card" id="flashcard-complete-view" style="display: none;">
+              <div class="score-ring" id="card-results-ring" style="background: conic-gradient(#a855f7 100%, #e2e8f0 0%);">
+                <i data-lucide="smile" style="z-index: 1; font-size: 32px; color: #a855f7;"></i>
+              </div>
+              <h4 class="results-title" style="color: #a855f7;">恭喜，已学完所有闪卡！</h4>
+              <p class="results-stats" id="card-results-stats-text">轻松掌握：8 张 / 模糊待温习：2 张</p>
+              <button class="quiz-restart-btn" id="card-restart-btn" style="background-color: #a855f7;">重新学习</button>
+            </div>
+            
+          </div>
+        </div>
+        
+        <!-- Vertical Quick Switch Sidebar -->
+        <div class="drawer-sidebar">
+          <div class="drawer-nav-item nav-transcript" data-target="drawer-transcript" title="视频原文"><i data-lucide="file-text"></i></div>
+          <div class="drawer-nav-item nav-ai" data-target="drawer-ai" title="AI助教"><i data-lucide="sparkles"></i></div>
+          <div class="drawer-nav-item nav-ppt" data-target="drawer-ppt" title="演示文稿"><i data-lucide="monitor"></i></div>
+          <div class="drawer-nav-item nav-mindmap" data-target="drawer-mindmap" title="思维导图"><i data-lucide="git-branch"></i></div>
+          <div class="drawer-nav-item nav-quiz" data-target="drawer-quiz" title="随堂练习"><i data-lucide="check-square"></i></div>
+          <div class="drawer-nav-item nav-flashcards active" data-target="drawer-flashcards" title="记忆闪卡"><i data-lucide="layers"></i></div>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- Main JavaScript File -->
+  <script src="app.js"></script>
+</body>
+</html>
